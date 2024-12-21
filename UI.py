@@ -5,31 +5,6 @@ import sys
 
 from .colors import *
 
-class Button(pygame.sprite.Sprite):
-    def __init__(self, game, scene, pos, size, on_click, highlight = False):
-        super().__init__()
-        self.game = game
-        self.scene = scene
-        self.pos = Vector2(pos)
-        self.on_click = on_click
-
-        self.hover = False
-
-        self.o_image = pygame.transform.scale(pygame.image.load("pixel.png"), (size))
-        self.image = self.o_image
-        self.rect = self.image.get_rect()
-        self.rect.center = self.pos
-
-    def update(self):
-        if self.rect.collidepoint(pygame.mouse.get_pos()):
-            self.hover = True
-        else:
-            self.hover = False
-
-        mouse = pygame.mouse.get_pressed()
-        if self.hover and mouse[0]:
-            self.on_click(self)
-
 class ProgressBar():
     def __init__(self, game, scene, pos, size, num, max_num, fcol = WHITE, bcol = (255 / 2, 255 / 2, 255 / 2)):
         super().__init__()
@@ -74,11 +49,7 @@ class Text(pygame.font.Font):                                   #adds button fun
         self.size = Vector2(size)
         self.pos = Vector2(pos)
         self.text = text
-        self.tag = tag
-        self.juice = juice
-        self.juice_sound = juice_sound
         self.col = col
-        self.on_click = on_click
 
         self.o_font_surf = self.render(self.text, False, self.col)
         self.font_surf = self.o_font_surf
@@ -95,6 +66,23 @@ class Text(pygame.font.Font):                                   #adds button fun
         self.rect = self.font_surf.get_rect()
         self.rect.center = self.pos
 
+    def draw(self):
+        self.font_surf = self.o_font_surf
+        self.rect = self.font_surf.get_rect()
+        self.rect.topleft = self.pos
+
+        self.game.screen.blit(self.font_surf, self.rect)
+
+class TextButton(Text):
+    def __init__(self, game, scene, pos, size, text, font, col, on_click=None, juice = True, juice_sound=None):
+        #tag, on_click, juice, juice_sound
+        super().__init__(game, scene, pos, size, text, font, col)
+
+        self.juice = juice
+        self.juice_sound = juice_sound
+        self.col = col
+        self.on_click = on_click
+
     def update(self):
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.hover = True
@@ -106,7 +94,7 @@ class Text(pygame.font.Font):                                   #adds button fun
             self.on_click()
 
     def draw(self):
-        if self.juice and self.tag == "btn":
+        if self.juice:
             if self.hover and not self.scaled:
                 self.font_surf = pygame.transform.scale(self.o_font_surf, (self.o_font_surf.get_width() * 1.5, self.o_font_surf.get_height() * 1.5))
                 self.font_surf = pygame.transform.rotate(self.font_surf, -5)
@@ -122,3 +110,28 @@ class Text(pygame.font.Font):                                   #adds button fun
                 self.juice_sound.play()
 
         self.game.screen.blit(self.font_surf, self.rect)
+
+class Button(pygame.sprite.Sprite):
+    def __init__(self, game, scene, pos, size, on_click, highlight = False):
+        super().__init__()
+        self.game = game
+        self.scene = scene
+        self.pos = Vector2(pos)
+        self.on_click = on_click
+
+        self.hover = False
+
+        self.o_image = pygame.transform.scale(pygame.image.load("pixel.png"), (size))
+        self.image = self.o_image
+        self.rect = self.image.get_rect()
+        self.rect.center = self.pos
+
+    def update(self):
+        if self.rect.collidepoint(pygame.mouse.get_pos()):
+            self.hover = True
+        else:
+            self.hover = False
+
+        mouse = pygame.mouse.get_pressed()
+        if self.hover and mouse[0]:
+            self.on_click(self)
