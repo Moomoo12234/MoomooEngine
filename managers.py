@@ -68,21 +68,3 @@ class MusicManager():
         time = pygame.time.get_ticks()
         if (time - self.song_buffer) / 1000 >= self.song_end:
             self.next_song()
-
-class SceneManager():
-    def __init__(self, game, scenes):
-        self.game = game
-
-        self.scene = 0
-        self.scenes = scenes
-
-        self.transition = Transition(self.game)
-
-    def set_scene(self, scene):
-        self.scene = scene
-
-    def update_scene(self):
-        self.scenes[self.scene].update()
-
-    def draw_scene(self):
-        self.scenes[self.scene].draw()

@@ -1,1 +1,1 @@
-__all__ = ["colors", "UI", "maths", "window", "animation"]
+__all__ = ["colors", "UI", "maths", "window", "animation", "scenes"]
