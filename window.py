@@ -7,10 +7,10 @@ import sys, array
 
 from .colors import *
 from .managers import *
-from .scenes import *
+from . import scenes
 
 class Window():
-    def __init__(self, path, res, scenelist, fpsLimit: int = 60):
+    def __init__(self, path: str, res: tuple, fpsLimit: int = 60):
         self.path = path
         self.res = Vector2(res)
         self.window = pygame.display.set_mode(self.res)#, pygame.OPENGL | pygame.DOUBLEBUF)
@@ -44,8 +44,8 @@ class Window():
         #self.program = self.ctx.program(vertex_shader = self.vertex_shader, fragment_shader = self.frag_shader)
         #self.render_object = self.ctx.vertex_array(self.program, [(self.quad_buffer, "2f 2f", "vert", "texcoord")])
 
-        self.scenes = scenelist
-        self.scene_manager = SceneManager(self, self.scenes)#, Transition)
+        self.scenes = []
+        self.scene_manager = scenes.SceneManager(self, self.scenes)#, Transition)
         self.music_manager = None
         self.bloom = 3.0
 

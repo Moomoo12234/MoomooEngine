@@ -4,8 +4,11 @@ pygame.init()
 
 from .spritesheet import *
 
+from . import window
+from . import scenes
+
 class Animation(pygame.sprite.Sprite):
-    def __init__(self, game, scene, spritesheet, pos, sprite_size):
+    def __init__(self, game: window.Window, scene: scenes.Scene, spritesheet: str, pos: Vector2, sprite_size: tuple):
         super().__init__()
         self.game = game
         self.scene = scene

@@ -4,8 +4,10 @@ pygame.init()
 pygame.mixer.init()
 import sys, array
 
+from . import window
+
 class SceneManager():
-    def __init__(self, game, scenes):#, transition):
+    def __init__(self, game: window.Window, scenes: array):#, transition):
         self.game = game
 
         self.scene = 0
@@ -23,7 +25,7 @@ class SceneManager():
         self.scenes[self.scene]._draw()
 
 class Scene():
-    def __init__(self, game, bg_col: tuple):
+    def __init__(self, game: window.Window, bg_col: tuple):
         self.game = game
 
         self.bg_col = bg_col
