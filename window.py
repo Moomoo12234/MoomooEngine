@@ -10,7 +10,7 @@ from .managers import *
 from .scenes import *
 
 class Window():
-    def __init__(self, path, res, scenelist):
+    def __init__(self, path, res, scenelist, fpsLimit: int = 60):
         self.path = path
         self.res = Vector2(res)
         self.window = pygame.display.set_mode(self.res)#, pygame.OPENGL | pygame.DOUBLEBUF)
@@ -18,6 +18,8 @@ class Window():
         self.screen_rect = self.screen.get_rect()
         self.clock = pygame.time.Clock()
         self.bg = BLACK
+        self.fpsLimit = fpsLimit
+
         #self.font = font
         self.music_volume = 0.1
         self.volume = 0.1
@@ -97,4 +99,4 @@ class Window():
 
             #frame_tex.release()
 
-            self.clock.tick(60)
+            self.clock.tick(self.fpsLimit)

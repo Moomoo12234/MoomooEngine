@@ -41,7 +41,7 @@ class ProgressBar():
         self.game.screen.blit(self.fimage, self.frect)
 
 class Text(pygame.font.Font):                                   #adds button functionality if set to "btn"
-    def __init__(self, game, scene, pos: int, size: int, text: str, font: str, tag: str, on_click = None, juice: bool = True, juice_sound = None, col: tuple = (255, 255, 255)):
+    def __init__(self, game, scene, pos: int, size: int, text: str, font: str, col: tuple = (255, 255, 255)):
         super().__init__(font, size)
         self.game = game
         self.scene = scene
