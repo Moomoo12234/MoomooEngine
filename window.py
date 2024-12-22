@@ -4,10 +4,10 @@ pygame.init()
 pygame.mixer.init()
 import sys, array
 
-
+import MoomooEngine
 from .colors import *
 from .managers import *
-from . import scenes
+#from . import scenes
 
 class Window():
     def __init__(self, path: str, res: tuple, fpsLimit: int = 60):
@@ -24,7 +24,7 @@ class Window():
         self.volume = 0.1
 
         self.scenes = []
-        self.scene_manager = scenes.SceneManager(self, self.scenes)#, Transition)
+        self.scene_manager = MoomooEngine.scenes.SceneManager(self, self.scenes)#, Transition)
         self.music_manager = None
         self.bloom = 3.0
 
